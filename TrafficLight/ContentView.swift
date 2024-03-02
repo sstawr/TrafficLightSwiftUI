@@ -42,8 +42,8 @@ struct ContentView: View {
             }
             .frame(width: 150, height: 50)
             .background(.blue)
-            .clipShape(RoundedRectangle(cornerRadius: 25))
-            .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.cyan, lineWidth: 4))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.cyan, lineWidth: 4))
             
         }
         .padding()
