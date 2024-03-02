@@ -9,24 +9,34 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State private var buttonText = "START"
+    @State private var buttonPressed = false
+    
     private enum CurrentLight {
         case red, yellow, green
     }
     
-    private let currentLight = CurrentLight.red
+    @State private var currentLight = CurrentLight.red
+    
+    private let lightIsOn = 1.0
+    private let lightIsOff = 0.3
+    
+    @State private var redLight = 0.3
+    @State private var yellowLight = 0.3
+    @State private var greenLight = 0.3
     
     var body: some View {
         VStack {
             VStack {
-                BulbView(color: .red, opacity: 0.3)
-                BulbView(color: .yellow, opacity: 0.3)
-                BulbView(color: .green, opacity: 0.3)
+                BulbView(color: .red, opacity: redLight)
+                BulbView(color: .yellow, opacity: yellowLight)
+                BulbView(color: .green, opacity: greenLight)
             }
             
             Spacer()
             
             Button(action: buttonAction) {
-                Text("Run")
+                Text(buttonText)
                     .foregroundStyle(.white)
                     .font(.largeTitle)
             }
@@ -40,7 +50,25 @@ struct ContentView: View {
     }
     
     private func buttonAction() {
+        if !buttonPressed {
+            buttonText = "NEXT"
+            buttonPressed.toggle()
+        }
         
+        switch currentLight {
+        case .red:
+            greenLight = lightIsOff
+            redLight = lightIsOn
+            currentLight = .yellow
+        case .yellow:
+            yellowLight = lightIsOn
+            redLight = lightIsOff
+            currentLight = .green
+        case .green:
+            greenLight = lightIsOn
+            yellowLight = lightIsOff
+            currentLight = .red
+        }
     }
 }
 
